@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "redhat.vscode-commons",
+    "redhat.fabric8-analytics",
+    "formulahendry.code-runner"
+  ]
+}
