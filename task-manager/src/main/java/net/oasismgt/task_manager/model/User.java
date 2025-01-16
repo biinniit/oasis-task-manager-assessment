@@ -1,6 +1,7 @@
 package net.oasismgt.task_manager.model;
 
 import java.time.Instant;
+import java.util.Set;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -39,6 +40,9 @@ public class User {
   @NotNull
   @Column(name = "family_name", nullable = false)
   private String familyName;
+
+  @OneToMany(mappedBy = "categories", cascade = CascadeType.REMOVE)
+  private Set<Category> categories;
 
   @NotNull
   @ColumnDefault("NOW()")

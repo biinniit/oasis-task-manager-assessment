@@ -14,10 +14,28 @@ This is a task management application built with [Spring](https://spring.io/) an
 
 ## Project setup
 
-**Backend:** The Spring framework is used for the backend REST API and it is built and tested with Java 21. If you need to modify this, change the Java version specified in the [POM file](/task-manager/pom.xml) before proceeding.
+**Backend:** The Spring framework is used for the backend REST API and it is built and tested with Java 21. If you need to modify this, change the Java version specified in the [POM file](/task-manager/pom.xml) before proceeding. You should run all database migrations before launching the API for the first time.
 
 #### Configure environment variables
 
 You must set certain environment variables to run the application.
 
 **Backend:** Copy the [`config.properties.example`](/task-manager/config.properties.example) file into a new file in the same directory named `config.properties` and fill in your own credentials in the newly-created `config.properties` file.
+
+#### Useful commands
+
+**Backend:** `cd task-manager`, and then:
+
+```bash
+# launch REST API
+$ mvn spring-boot:run
+
+# unit tests
+$ mvn test
+
+# show pending database migrations
+$ mvn flyway:info
+
+# run all pending database migrations (update the database structure)
+$ mvn flyway:migrate
+```
