@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
-import { TaskComponent } from './task/task.component';
+import { TaskComponent } from './task/task.component'
 
 @Component({
   selector: 'app-root',
@@ -15,8 +15,8 @@ import { TaskComponent } from './task/task.component';
       </section>
     </main>
   `,
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tasks';
+  title = 'tasks'
 }
