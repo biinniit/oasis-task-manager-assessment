@@ -1,5 +1,5 @@
 INSERT INTO users (email, password, given_name, family_name)
-VALUES ('user@example.com', '{bcrypt}$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', 'John', 'Doe');
+VALUES ('user@example.com', '$2a$10$XlkdPQQhYcolx8bgp6nL3uNvDs8ZwDXA4KFaDencZsIhjMQO3j5lq', 'John', 'Doe');
 
 INSERT INTO categories (title, user_id)
 VALUES ('Personal', (SELECT user_id FROM users WHERE email = 'user@example.com'));
