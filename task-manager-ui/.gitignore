@@ -21,10 +21,17 @@ pids
 *.pid.lock
 sessions/
 cache/
+/.angular/cache
+.sass-cache/
+/connect.lock
+/typings
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-dist
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
 # Dependency directories
 node_modules/

@@ -26,6 +26,7 @@ build/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # macOS template
 .DS_Store

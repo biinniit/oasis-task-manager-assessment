@@ -3,6 +3,8 @@
     "vscjava.vscode-java-pack",
     "redhat.vscode-commons",
     "redhat.fabric8-analytics",
+    "eamodio.gitlens",
+    "streetsidesoftware.code-spell-checker",
     "formulahendry.code-runner"
   ]
 }
