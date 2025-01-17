@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import net.oasismgt.task_manager.model.LoginRequest;
-import net.oasismgt.task_manager.model.LoginResponse;
+import net.oasismgt.task_manager.dto.LoginRequest;
+import net.oasismgt.task_manager.dto.LoginResponse;
 import net.oasismgt.task_manager.service.JwtIssuer;
 
 @RestController

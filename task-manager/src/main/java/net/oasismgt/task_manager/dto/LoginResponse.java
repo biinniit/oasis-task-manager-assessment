@@ -1,4 +1,4 @@
-package net.oasismgt.task_manager.model;
+package net.oasismgt.task_manager.dto;
 
 import lombok.Builder;
 import lombok.Getter;
