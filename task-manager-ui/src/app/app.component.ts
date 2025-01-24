@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router'
           </div>
         </mat-toolbar>
       </header>
-      <section class="container-fluid m-0 pt-5">
+      <section class="container-fluid m-0 py-5">
         <router-outlet />
       </section>
     </main>

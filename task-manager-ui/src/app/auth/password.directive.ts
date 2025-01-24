@@ -12,6 +12,14 @@ export const oneSpecial: ValidatorFn = passwordStrengthValidator(/^(?=.*[^a-zA-Z
 /** The password must have at least one numeric character */
 export const oneNumeric: ValidatorFn = passwordStrengthValidator(/^(?=.*[0-9]).+$/, 'oneNumeric')
 
+/** The value must be equal to the provided password */
+export function equalTo(password: AbstractControl): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valid = control.value === password.value
+    return valid ? null : { equalTo: { expectedValue: password.value, actualValue: control.value } }
+  }
+}
+
 function passwordStrengthValidator(regex: RegExp, errorName: string = 'weakPassword'): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valid = regex.test(control.value)
