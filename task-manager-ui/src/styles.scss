@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '../node_modules/bootstrap/scss/bootstrap-reboot';
+@import '../node_modules/bootstrap/scss/bootstrap-grid';
+@import '../node_modules/bootstrap/scss/bootstrap-utilities';
+
 html,
 body {
   height: 100%;
@@ -7,4 +11,6 @@ body {
 body {
   margin: 0;
   font-family: 'Be Vietnam Pro', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }

@@ -5,7 +5,7 @@
     "dbaeumer.vscode-eslint",
     "steoates.autoimport",
     "eamodio.gitlens",
-    "sibiraj-s.vscode-scss-formatter",
+    "mrmlnc.vscode-scss",
     "streetsidesoftware.code-spell-checker"
   ]
 }
