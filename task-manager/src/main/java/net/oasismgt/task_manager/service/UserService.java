@@ -1,5 +1,7 @@
 package net.oasismgt.task_manager.service;
 
+import java.time.Instant;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,11 @@ public class UserService {
     categoryRepository.save(defaultCategory);
 
     return createdUser;
+  }
+
+  public User recordLoginActivity(String userEmail) {
+    User user = userRepository.findByEmail(userEmail).orElseThrow();
+    user.setLastLogin(Instant.now());
+    return userRepository.save(user);
   }
 }

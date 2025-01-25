@@ -36,6 +36,7 @@ public class AuthController {
         .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+    userService.recordLoginActivity(principal.getEmail());
 
     String token = jwtService.issueToken(
         principal.getUserId(),
