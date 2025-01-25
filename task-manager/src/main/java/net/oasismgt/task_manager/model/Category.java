@@ -3,13 +3,18 @@ package net.oasismgt.task_manager.model;
 import java.time.Instant;
 import java.util.Set;
 
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.ToString;
 
 @Entity
+@Data
+@ToString
 @Table(name = "categories")
 public class Category {
   @Id
@@ -27,16 +32,15 @@ public class Category {
   @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
   private User user;
 
-  @OneToMany(mappedBy = "tasks", cascade = CascadeType.REMOVE)
+  @ToString.Exclude
+  @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
   private Set<Task> tasks;
 
-  @NotNull
-  @ColumnDefault("NOW()")
-  @Column(name = "created_at", nullable = false)
+  @CreationTimestamp
+  @Column(name = "created_at", nullable = false, updatable = false)
   private Instant createdAt;
 
-  @NotNull
-  @ColumnDefault("NOW()")
+  @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 }

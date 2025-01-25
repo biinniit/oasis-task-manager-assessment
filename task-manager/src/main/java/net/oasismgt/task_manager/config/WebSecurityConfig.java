@@ -25,7 +25,7 @@ public class WebSecurityConfig {
 
   @Bean
   public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
-    http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     http.cors().disable()
         .csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -45,8 +45,8 @@ public class WebSecurityConfig {
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
     return http.getSharedObject(AuthenticationManagerBuilder.class)
-        .userDetailsService(this.customUserDetailsService)
-        .passwordEncoder(this.passwordEncoder())
+        .userDetailsService(customUserDetailsService)
+        .passwordEncoder(passwordEncoder())
         .and().build();
   }
 }

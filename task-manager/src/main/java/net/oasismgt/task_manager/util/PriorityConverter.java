@@ -1,4 +1,4 @@
-package net.oasismgt.task_manager.model;
+package net.oasismgt.task_manager.util;
 
 import java.util.stream.Stream;
 

@@ -15,20 +15,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import net.oasismgt.task_manager.model.auth.UserPrincipalAuthenticationToken;
-import net.oasismgt.task_manager.service.JwtDecoder;
+import net.oasismgt.task_manager.service.JwtService;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-  private final JwtDecoder jwtDecoder;
+  private final JwtService jwtService;
   private final JwtToPrincipalConverter jwtToPrincipalConverter;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     extractTokenFromRequest(request)
-        .map(this.jwtDecoder::decodeToken)
-        .map(this.jwtToPrincipalConverter::convert)
+        .map(jwtService::decodeToken)
+        .map(jwtToPrincipalConverter::convert)
         .map(UserPrincipalAuthenticationToken::new)
         .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
     filterChain.doFilter(request, response);

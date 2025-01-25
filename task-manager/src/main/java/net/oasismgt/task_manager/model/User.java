@@ -3,13 +3,20 @@ package net.oasismgt.task_manager.model;
 import java.time.Instant;
 import java.util.Set;
 
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.ToString;
 
 @Entity
+@Data
+@ToString
 @Table(name = "users")
 public class User {
   @Id
@@ -22,6 +29,7 @@ public class User {
   @Column(name = "email", nullable = false)
   private String email;
 
+  @JsonIgnore
   @Size(max = 255)
   @NotNull
   @Column(name = "password", nullable = false)
@@ -41,16 +49,15 @@ public class User {
   @Column(name = "family_name", nullable = false)
   private String familyName;
 
-  @OneToMany(mappedBy = "categories", cascade = CascadeType.REMOVE)
+  @ToString.Exclude
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
   private Set<Category> categories;
 
-  @NotNull
-  @ColumnDefault("NOW()")
+  @CreationTimestamp
   @Column(name = "created_at", nullable = false)
   private Instant createdAt;
 
-  @NotNull
-  @ColumnDefault("NOW()")
+  @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 

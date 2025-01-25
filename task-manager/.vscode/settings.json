@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "editor.rulers": [110],
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.compile.nullAnalysis.mode": "automatic"
 }

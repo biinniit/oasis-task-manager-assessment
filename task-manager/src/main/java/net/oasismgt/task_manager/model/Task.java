@@ -2,14 +2,19 @@ package net.oasismgt.task_manager.model;
 
 import java.time.Instant;
 
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.ToString;
 import net.oasismgt.task_manager.enums.Priority;
 
 @Entity
+@Data
+@ToString
 @Table(name = "tasks")
 public class Task {
   @Id
@@ -40,13 +45,11 @@ public class Task {
   @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
   private Category category;
 
-  @NotNull
-  @ColumnDefault("NOW()")
+  @CreationTimestamp
   @Column(name = "created_at", nullable = false)
   private Instant createdAt;
 
-  @NotNull
-  @ColumnDefault("NOW()")
+  @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 }
