@@ -6,6 +6,8 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,11 +29,16 @@ public class Category {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @ManyToOne
+  @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+  private long userId;
+
+  @JsonIgnore
   @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
   private User user;
 
+  @JsonIgnore
   @ToString.Exclude
   @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
   private Set<Task> tasks;

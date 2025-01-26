@@ -49,6 +49,7 @@ public class User {
   @Column(name = "family_name", nullable = false)
   private String familyName;
 
+  @JsonIgnore
   @ToString.Exclude
   @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
   private Set<Category> categories;

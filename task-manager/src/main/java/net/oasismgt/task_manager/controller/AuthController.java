@@ -1,7 +1,6 @@
 package net.oasismgt.task_manager.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -46,8 +46,8 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<User> register(@RequestBody @Validated RegistrationRequest request) {
-    User createdUser = userService.create(request.toUser());
-    return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+  @ResponseStatus(HttpStatus.CREATED)
+  public User register(@RequestBody @Validated RegistrationRequest request) {
+    return userService.create(request.toUser());
   }
 }

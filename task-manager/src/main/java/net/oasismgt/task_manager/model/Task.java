@@ -5,6 +5,8 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -40,8 +42,12 @@ public class Task {
   @Column(name = "completed", nullable = false)
   private boolean completed;
 
-  @ManyToOne
+  @Column(name = "category_id", nullable = false, insertable = false, updatable = false)
+  private long categoryId;
+
+  @JsonIgnore
   @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
   private Category category;
 
