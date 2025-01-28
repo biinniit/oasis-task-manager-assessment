@@ -1,11 +1,15 @@
-import { Component, signal } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { Router } from '@angular/router'
 import { merge } from 'rxjs'
+import { ApiError } from '../app.model'
+import { AuthService } from './auth.service'
 import { equalTo, oneLowercase, oneNumeric, oneSpecial, oneUppercase } from './password.directive'
 
 @Component({
@@ -157,6 +161,10 @@ export class RegisterComponent {
   passwordVisible = false
   passwordConfirmationVisible = false
 
+  private readonly auth = inject(AuthService)
+  private readonly router = inject(Router)
+  private readonly snackBar = inject(MatSnackBar)
+
   constructor() {
     this.registerForm.get('confirmPassword')!.addValidators(equalTo(this.registerForm.get('password')!))
 
@@ -229,6 +237,23 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    console.log(this.registerForm.value)
+    this.auth
+      .register({
+        givenName: this.registerForm.get('givenName')!.value!,
+        middleName: this.registerForm.get('middleName')!.value ?? undefined,
+        familyName: this.registerForm.get('familyName')!.value!,
+        email: this.registerForm.get('email')!.value!,
+        password: this.registerForm.get('password')!.value!
+      })
+      .subscribe({
+        next: (user) => this.router.navigateByUrl(AuthService.LOGIN_PATH),
+        error: (err: ApiError) =>
+          this.snackBar.open(`Could not sign up: ${err.error}`, undefined, {
+            duration: 10000,
+            panelClass: 'snack-bar-error',
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom'
+          })
+      })
   }
 }

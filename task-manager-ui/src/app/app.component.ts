@@ -1,8 +1,9 @@
-import { Component } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { RouterModule } from '@angular/router'
+import { AuthService } from './auth/auth.service'
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { RouterModule } from '@angular/router'
           </div>
 
           <div>
-            @if (isLoggedIn) {
+            @if (isLoggedIn()) {
               <button mat-icon-button class="profile-button" aria-label="Profile icon">
                 <mat-icon>account_circle</mat-icon>
               </button>
@@ -40,9 +41,11 @@ import { RouterModule } from '@angular/router'
 })
 export class AppComponent {
   title = 'tasks'
-  isLoggedIn: boolean | null
+  isLoggedIn = signal(false)
+
+  readonly auth = inject(AuthService)
 
   constructor() {
-    this.isLoggedIn = false
+    this.auth.isLoggedIn.subscribe((status) => this.isLoggedIn.set(status))
   }
 }

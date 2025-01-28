@@ -41,7 +41,7 @@ public class TaskController {
     if (categoryId != null) {
       Optional<Category> category = categories.stream().filter(c -> c.getId() == categoryId).findFirst();
       if (category.isEmpty())
-        throw new NotFoundException("Category not found");
+        throw new NotFoundException("Category not found with ID: " + categoryId);
       return taskRepository.findByCategory(category.get());
     } else
       return taskRepository.findAllByCategoryIn(categories);

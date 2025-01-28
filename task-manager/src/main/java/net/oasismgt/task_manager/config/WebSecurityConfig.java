@@ -1,5 +1,8 @@
 package net.oasismgt.task_manager.config;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
 import net.oasismgt.task_manager.service.CustomUserDetailsService;
@@ -23,13 +29,16 @@ public class WebSecurityConfig {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final CustomUserDetailsService customUserDetailsService;
 
+  @Value("${cors.allowed-origins}")
+  private String corsAllowedOrigins;
+
   @Bean
   public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
     http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-    http.cors().disable()
-        .csrf().disable()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and().formLogin().disable()
+    http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .csrf(csrf -> csrf.disable())
+        .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .formLogin(login -> login.disable())
         .securityMatcher("/api/**")
         .authorizeHttpRequests(registry -> registry.requestMatchers("/api/").permitAll()
             .requestMatchers("/api/auth/**").permitAll()
@@ -48,5 +57,14 @@ public class WebSecurityConfig {
         .userDetailsService(customUserDetailsService)
         .passwordEncoder(passwordEncoder())
         .and().build();
+  }
+
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+    configuration.setAllowedOrigins(List.of(corsAllowedOrigins));
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 }
