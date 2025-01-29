@@ -1,0 +1,16 @@
+#taskContainer {
+  --bs-focus-ring-color: rgba(var(--mat-sys-secondary-container), 0.25);
+}
+#taskTitle {
+  color: var(--mat-sys-on-surface);
+  outline: none;
+}
+.high {
+  color: var(--mat-sys-error-container);
+}
+.medium {
+  color: var(--mat-sys-tertiary);
+}
+.low {
+  color: var(--mat-sys-on-surface);
+}

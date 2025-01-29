@@ -37,3 +37,44 @@ body {
     )
   );
 }
+
+// resize Material icons
+$lg-icon-size: 2;
+$xl-icon-size: 4;
+$sm-icon-size: 0.75;
+@mixin bigger-icon($size: 1) {
+  font-size: calc(1rem * $size);
+  width: calc(1rem * $size) !important;
+  height: calc(1rem * $size) !important;
+}
+.lg-icon {
+  @include bigger-icon($size: $lg-icon-size);
+}
+.xl-icon {
+  @include bigger-icon($size: $xl-icon-size);
+}
+.sm-icon {
+  transform: scale($sm-icon-size);
+}
+.lg-icon-button {
+  @include mat.icon-button-overrides(
+    (
+      icon-size: calc(1rem * $lg-icon-size),
+      state-layer-size: calc(1rem * $lg-icon-size * 5 / 3)
+    )
+  );
+  mat-icon {
+    @include bigger-icon($size: $lg-icon-size);
+  }
+}
+.xl-icon-button {
+  @include mat.icon-button-overrides(
+    (
+      icon-size: calc(1rem * $xl-icon-size),
+      state-layer-size: calc(1rem * $xl-icon-size * 5 / 3)
+    )
+  );
+  mat-icon {
+    @include bigger-icon($size: $xl-icon-size);
+  }
+}

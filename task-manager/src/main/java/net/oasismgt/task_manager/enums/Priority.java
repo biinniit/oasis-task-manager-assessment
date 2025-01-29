@@ -1,5 +1,7 @@
 package net.oasismgt.task_manager.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Priority {
   HIGH("high"), MEDIUM("medium"), LOW("low");
 
@@ -9,6 +11,7 @@ public enum Priority {
     this.code = code;
   }
 
+  @JsonValue
   public String getCode() {
     return code;
   }

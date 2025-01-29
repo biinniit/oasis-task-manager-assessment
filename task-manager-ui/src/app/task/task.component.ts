@@ -1,26 +1,45 @@
-import { Component, model, signal } from '@angular/core'
+import { Component, computed, model } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatInputModule } from '@angular/material/input'
 
-import { PriorityIconComponent } from './priority-icon.component'
-import { Priority } from './priority.enum'
+import { MatIconModule } from '@angular/material/icon'
+import { Priority, Task } from './task.model'
 
 @Component({
   selector: 'app-task',
-  imports: [MatInputModule, MatButtonModule, MatCheckboxModule, FormsModule, PriorityIconComponent],
+  imports: [FormsModule, MatButtonModule, MatCheckboxModule, MatIconModule],
   template: `
-    <div class="task-item">
-      <mat-checkbox class="task-item-completed" [(ngModel)]="completed"></mat-checkbox>
-      <input matInput type="text" [(ngModel)]="title" />
-      <app-priority-icon [(priority)]="priority"></app-priority-icon>
-    </div>
+    @if (task()) {
+      <div id="taskContainer" class="d-flex align-items-center focus-ring">
+        <mat-checkbox [ngModel]="task().completed"></mat-checkbox>
+        <input
+          type="text"
+          class="flex-grow-1 bg-transparent border border-0"
+          id="taskTitle"
+          [ngModel]="task().title" />
+        <button mat-icon-button type="button" class="lg-icon-button {{ priority() ?? '' }}">
+          <mat-icon>{{ priorityIcon() }}</mat-icon>
+        </button>
+      </div>
+    }
   `,
-  styleUrls: []
+  styleUrl: './task.component.scss'
 })
 export class TaskComponent {
-  readonly completed = model(false)
-  readonly title = model('Do laundry')
-  readonly priority = signal<Priority>(Priority.LOW)
+  task = model.required<Task>()
+  priority = computed(() => this.task().priority)
+
+  priorityIcon(): string {
+    switch (this.priority()) {
+      case Priority.HIGH:
+        return 'arrow_drop_up'
+      case Priority.MEDIUM:
+        return 'horizontal_rule'
+      case Priority.LOW:
+        return 'arrow_drop_down'
+      default:
+        return ''
+    }
+  }
 }
