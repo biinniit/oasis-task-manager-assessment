@@ -52,11 +52,9 @@ import { TaskCategory } from './task-category.model'
                     </mat-menu>
                   </div>
 
-                  @if (tasks[i].length > 0) {
-                    @for (task of tasks[i]; track task().id) {
-                      <app-task [(task)]="task"></app-task>
-                    }
-                  } @else {
+                  @for (task of tasks[i]; track task().id) {
+                    <app-task [(task)]="task"></app-task>
+                  } @empty {
                     <div class="d-flex flex-column align-items-center justify-content-center py-5">
                       <mat-icon class="fs-1" inline="true">cloud_off</mat-icon>
                       <p>No tasks found for this category</p>
