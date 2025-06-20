@@ -10,4 +10,4 @@ flyway.locations=classpath:db/migration
 jwt.secret=secret
 
 # CORS (for frontend SPAs)
-cors.allowed-origins=http://localhost:4200
+cors.allowed-origin-patterns=http://localhost:4200

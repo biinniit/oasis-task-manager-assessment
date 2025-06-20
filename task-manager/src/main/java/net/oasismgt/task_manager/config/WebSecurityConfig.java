@@ -29,8 +29,8 @@ public class WebSecurityConfig {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final CustomUserDetailsService customUserDetailsService;
 
-  @Value("${cors.allowed-origins}")
-  private String corsAllowedOrigins;
+  @Value("${cors.allowed-origin-patterns}")
+  private String corsAllowedOriginPatterns;
 
   @Bean
   public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
@@ -63,7 +63,7 @@ public class WebSecurityConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-    configuration.setAllowedOrigins(List.of(corsAllowedOrigins));
+    configuration.setAllowedOriginPatterns(List.of(corsAllowedOriginPatterns));
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
