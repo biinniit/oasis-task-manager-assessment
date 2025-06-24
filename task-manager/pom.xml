@@ -21,10 +21,10 @@
 		<developer/>
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection>scm:git:git@github.com:biinniit/oasis-task-manager-assessment.git</developerConnection>
-		<tag/>
-		<url>https://github.com/biinniit/oasis-task-manager-assessment</url>
+		<connection />
+    <developerConnection>scm:git:file://..</developerConnection>
+    <url>scm:git:file://..</url>
+    <tag />
 	</scm>
 	<properties>
 		<java.version>21</java.version>
