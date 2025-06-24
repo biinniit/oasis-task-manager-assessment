@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "The secret passphrase used to sign user access tokens."
+    },
+    {
+      "name": "cors.allowed-origin-patterns",
+      "type": "java.lang.String",
+      "description": "A comma-separated list of URLs to allow requests from. Supports wildcards."
+    }
+  ]
+}
