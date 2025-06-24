@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.*;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,8 +17,8 @@ import jakarta.validation.ConstraintViolationException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
-      HttpStatusCode status, WebRequest request) {
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull MethodArgumentNotValidException ex,
+      @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request) {
     Map<String, List<String>> body = new HashMap<>();
 
     List<String> errors = ex.getBindingResult()
@@ -36,6 +37,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     Map<String, String> body = new HashMap<>();
     body.put("message", ex.getMessage());
     return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(UnauthorizedException.class)
+  public ResponseEntity<?> unauthorizedException(UnauthorizedException ex, WebRequest request) {
+    Map<String, String> body = new HashMap<>();
+    body.put("message", ex.getMessage());
+    return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
